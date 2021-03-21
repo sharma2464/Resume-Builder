@@ -17,10 +17,8 @@ export default function Navbar(props) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             {props.links && props.links.map((e, i) => (
-                                <li className="nav-item" key={e.name}>
-                                    <Link className={`nav-link active ${e.className}`} to={{pathname: e.link}}>{e.name}</Link>
-                                    {/*<a className={`nav-link active ${e.className}`} aria-current="page" href={e.link}*/}
-                                    {/*   onClick={e.onClick}>{e.name}</a>*/}
+                                <li className="nav-item" key={e.name+i}>
+                                    <Link className={`nav-link active ${e.className}`} to={{pathname: e.link}} onClick={e.onClick} >{e.name}</Link>
                                 </li>
                             ))}
                         </ul>

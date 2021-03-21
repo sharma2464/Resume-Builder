@@ -2,23 +2,14 @@ import React from 'react';
 import Builder from "./screens/Builder";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Navbar from "./components/Navbar";
-import handlePDFDownload from "./helpers/downloadPDF";
 import Profiles from "./screens/Profiles";
 import ShowProfile from "./screens/Profiles/show";
 
-function App() {
+function App(props) {
     const navLinks = [
-        {name: 'Profiles', link: '/profiles'}]
-
-    React.useEffect(() => {
-        if (window.location.pathname !== "/profiles") {
-            navLinks.push({
-                name: 'Download as PDF',
-                onClick: () => handlePDFDownload(),
-                className: 'btn btn-sm btn-outline-success text-white'
-            })
-        }
-    }, [])
+        {name: 'Home', link: '/'},
+        {name: 'Profiles', link: '/profiles'},
+    ]
 
     return (
         <Router>

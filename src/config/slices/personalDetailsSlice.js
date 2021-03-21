@@ -6,6 +6,7 @@ const initialState = {
     lastName: '',
     dateOfBirth: '',
     gender: '',
+    bio: '',
     makeProfilePublic: false,
     image: ''
 }

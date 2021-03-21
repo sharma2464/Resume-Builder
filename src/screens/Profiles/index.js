@@ -1,3 +1,4 @@
+/* eslist-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash'
@@ -52,7 +53,7 @@ export default function Profiles(props) {
                                         </thead>
                                         <tbody>
                                         {profiles.map((p, i) => (
-                                            <tr>
+                                            <tr key={i}>
                                                 <th scope="row">{p.id}</th>
                                                 <td>
                                                     <Link to={{pathname: `/profiles/${p.id}`}}>

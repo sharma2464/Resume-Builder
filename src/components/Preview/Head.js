@@ -5,10 +5,11 @@ import TempDiv from "../TempDiv";
 
 export default function Head(props) {
     const personalState = useSelector(state => state.personal)
-    const {firstName, middleName, lastName, dateOfBirth, gender, image} = personalState
+    const {firstName, middleName, lastName, dateOfBirth, gender, bio, image} = personalState
     const fullName = `${firstName}${middleName && " " + middleName}${lastName && " " + lastName}`
+
     return (
-        <div className="card mb-3 border-0"
+        <div className="mb-3 border-0"
              style={{ /* margin: "auto", maxWidth: "540px", */ backgroundColor: 'rgba(0,0,0,0.0)'}}>
             <div className='row g-2'>
                 <div className='col-8'>
@@ -18,20 +19,35 @@ export default function Head(props) {
                                 ? <h2 className="card-title">{fullName}</h2>
                                 : <TempDiv {...({width: '100%', height: '55px'})} />
                         }
-                        {
-                            dateOfBirth
-                                ? <p className="card-text">Date of birth: {dateOfBirth}</p>
-                                : <TempDiv {...({width: '100%', height: '40px', marginTop: '10px'})} />
-                        }
-                        {
-                            gender
-                                ? <p className="card-text">Gender:
-                                    <small className="text-muted">{" "}
-                                        {_.startCase(gender)}
-                                    </small>
-                                </p>
-                                : <TempDiv {...({width: '100%', height: '35px', marginTop: '10px'})} />
-                        }
+                        <div className='row'>
+                            <div className='col'>
+
+                                {
+                                    dateOfBirth
+                                        ? <p className="card-text">Date of birth:{" "}
+                                            <span className='text-muted'>{dateOfBirth}</span>
+                                        </p>
+                                        : <TempDiv {...({width: '100%', height: '40px', marginTop: '10px'})} />
+                                }
+                            </div>
+                            <div className='col'>
+                                {
+                                    gender
+                                        ? <p className="card-text">Gender:
+                                            <span className="text-muted">{" "}
+                                                {_.startCase(gender)}
+                                            </span>
+                                        </p>
+                                        : <TempDiv {...({width: '100%', height: '35px', marginTop: '10px'})} />
+                                }
+                            </div>
+                        </div>
+                        <div className='text-muted mt-1'>
+                            {bio
+                                ? <> Bio:{" "}<small className="fw-normal">{bio}</small></>
+                                : <TempDiv {...({width: '100%', height: '35px', marginTop: '10px'})} />}
+
+                        </div>
                     </div>
                 </div>
                 <div className='col-2'>

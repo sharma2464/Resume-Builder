@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import {useSelector, useDispatch} from "react-redux";
-import {update, makePublic, reset} from "../../config/slices/personalDetailsSlice";
+import React from 'react'
+import {useDispatch, useSelector} from "react-redux";
+import {update} from "../../config/slices/personalDetailsSlice";
 
 export default function PersonalDetails(props) {
     const personalState = useSelector(state => state.personal)
@@ -10,6 +10,7 @@ export default function PersonalDetails(props) {
         lastName: personalState.lastName,
         dateOfBirth: personalState.dateOfBirth,
         gender: personalState.gender,
+        bio: personalState.bio,
         makePublic: personalState.makePublic,
         image: personalState.image
     }
@@ -87,6 +88,12 @@ export default function PersonalDetails(props) {
                 </div>
             </div>
 
+            <div className='col-md-12'>
+                <label htmlFor="validationBio" className="form-label">Bio</label>
+                <textarea type="text" rows={2} className="form-control" id="validationBio" name='bio'
+                       value={state.bio} onChange={handleInputChange} onBlur={handleFormSubmit}/>
+            </div>
+
             <div className='col-md-4'>
                 <label className="form-label" htmlFor="photoUpload">Profile Picture</label>
                 <input type='file' onChange={handleImageUpload} id='photoUpload' onBlur={handleFormSubmit}/>
@@ -107,7 +114,6 @@ export default function PersonalDetails(props) {
             </div>
             <div className='col-md-12'>
                 <div className='row'>
-
 
 
                 </div>
