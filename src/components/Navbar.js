@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 
 export default function Navbar(props) {
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href={props.brandLink}>{props.brandName}</a>
+                    <Link className="navbar-brand" to={{pathname: props.brandLink}}>{props.brandName}</Link>
+                    {/*<a className="navbar-brand" href={props.brandLink}>{props.brandName}</a>*/}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +18,9 @@ export default function Navbar(props) {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             {props.links && props.links.map((e, i) => (
                                 <li className="nav-item" key={e.name}>
-                                    <a className="nav-link active" aria-current="page" href={e.link}>{e.name}</a>
+                                    <Link className={`nav-link active ${e.className}`} to={{pathname: e.link}}>{e.name}</Link>
+                                    {/*<a className={`nav-link active ${e.className}`} aria-current="page" href={e.link}*/}
+                                    {/*   onClick={e.onClick}>{e.name}</a>*/}
                                 </li>
                             ))}
                         </ul>
@@ -32,7 +36,9 @@ Navbar.propTypes = {
     brandLink: PropTypes.string,
     links: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
-        link: PropTypes.string
+        link: PropTypes.string,
+        onClick: PropTypes.func,
+        className: PropTypes.string
     }))
 }
 

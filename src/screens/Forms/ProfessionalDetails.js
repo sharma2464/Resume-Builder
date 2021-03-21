@@ -1,86 +1,40 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useSelector, useDispatch} from "react-redux";
-import {update, makePublic, reset} from "../../config/slices/personalDetailsSlice";
 import Tabs from "../../components/Tabs";
 import Experiences from "./Experiences";
 import {
-    addHospitalExperience,
-    addProfessionalPositions,
-    addSpecialAssignments,
+    addExperience,
+    removeExperience,
     updateExperience,
-    updateHospitalExperience,
-    updateProfessionalPositions,
-    updateSpecialExperience
 } from "../../config/slices/professionalExperienceSlice";
 import Swal from 'sweetalert2'
 import _ from 'lodash'
 
 export default function ProfessionalDetails(props) {
     const experiences = useSelector(state => state.experiences)
-    const _init_state_ = {
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        dateOfBirth: '',
-        gender: '',
-        // makePublic: personalState.makePublic
-    }
-    const [state, setState] = React.useState(_init_state_)
     const dispatch = useDispatch()
 
-    const handleInputChange = event => {
-        setState({...state, [event.target.name]: event.target.value})
-    }
-    const handleRadioChange = event => {
-        setState({...state, gender: event.target.value})
-    }
-
-    const handleMakeProfilePublic = event => {
-        setState({...state, makePublic: !state.makePublic})
-    }
-    const handleFormSubmit = event => {
-        // console.log("State", state, "\n", 'Personal', personalState)
-        dispatch(update(state))
-    }
-
-    const addExperience = async (event, name) => {
-
+    const handleAddExperience = async (event, type) => {
         const {value: text} = await Swal.fire({
             input: 'textarea',
             inputLabel: 'Add new experience',
             inputPlaceholder: 'Type your experience here...',
             inputAttributes: {
-                'aria-label': 'Type your message here'
+                'aria-label': 'Type your experience here'
             },
             showCancelButton: true
         })
 
         if (text) {
-            switch (name) {
-                case 'hospital':
-                    return dispatch(addHospitalExperience(text))
-
-                case 'special':
-                    return dispatch(addSpecialAssignments(text))
-
-                case 'professional':
-                    return dispatch(addProfessionalPositions(text))
-
-                default:
-                    return
-            }
-            Swal.fire("Added successfully.")
+            dispatch(addExperience({type, text}))
+            Swal.fire("Added", 'Experience has been added', "success")
         }
     }
 
     const handleEditExperience = async (event, id, type) => {
-        // let expText = _.findIndex(experiences[type], {id: id}).text
-        // let expIndex = experiences[type].findIndex(exp => exp.id === id)
         let index = _.findIndex(experiences[type], {id: id})
         let expText = experiences[type][index].text
-        console.log('ExpText', expText)
-        // console.log('expText', expText, '\n', 'expIndex', expIndex)
-        if (index && expText) {
+        if (expText) {
             const {value: text} = await Swal.fire({
                 inputValue: expText,
                 input: 'textarea',
@@ -90,53 +44,92 @@ export default function ProfessionalDetails(props) {
                 showCancelButton: true
             })
 
-            if (text){
+            if (text) {
                 dispatch(updateExperience({type, index, text}))
-                // console.log('Text', text)
+                Swal.fire("Updated", "Experience has been updated", 'success')
             }
-
-            // if (text) {
-            //     switch (type) {
-            //         case 'hospital':
-            //             return dispatch(updateHospitalExperience({id, text}))
-            //
-            //         case 'special':
-            //             return dispatch(updateSpecialExperience({id, text}))
-            //
-            //         case 'professional':
-            //             return dispatch(updateProfessionalPositions({id, text}))
-            //
-            //         default:
-            //             return
-            //     }
-            //     Swal.fire("Added successfully.")
-            // }
         }
     }
 
-    //         hospitalExperiences: [],
-    //         specialAssignments: [],
-    //         professionalPositions: []
+    const handleDeleteExperience = (event, id, type) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(removeExperience({type, id}))
+                Swal.fire(
+                    'Deleted!',
+                    'Experience has been deleted.',
+                    'success'
+                )
+            }
+        })
+    }
 
     return (
         <div>
             <Tabs list={[
                 {
-                    title: 'Hospital Experiences', components: (
-                        <>
-                            <button onClick={e => addExperience(e, 'hospital')}>Add New</button>
-                            <Experiences {...({
-                                experiences: experiences.hospitalExperiences,
-                                type: 'hospitalExperiences',
-                                handleEditExperience,
-                            })}/>
-                        </>
-                    )
+                    title: 'Hospital Experiences',
+                    components: <>
+                        <div className='row'>
+                            <div className='col-12 mb-2'>
+                                <button className='btn btn-sm btn-primary float-end'
+                                        onClick={e => handleAddExperience(e, 'hospitalExperiences')}>Add New
+                                </button>
+                            </div>
+                        </div>
+                        <Experiences {...({
+                            experiences: experiences.hospitalExperiences,
+                            type: 'hospitalExperiences',
+                            handleEditExperience,
+                            handleDeleteExperience
+                        })}/>
+                    </>
                 },
-                {title: 'Special Assignements', components: <>Special Assignements</>},
-                {title: 'Professional Positions', components: <>Professional Positions</>},
+                {
+                    title: 'Special Assignements',
+                    components: <>
+                        <div className='row'>
+                            <div className='col-12 mb-2'>
+                                <button className='btn btn-sm btn-primary float-end'
+                                        onClick={e => handleAddExperience(e, 'specialAssignments')}>Add New
+                                </button>
+                            </div>
+                        </div>
+                        <Experiences {...({
+                            experiences: experiences.specialAssignments,
+                            type: 'specialAssignments',
+                            handleEditExperience,
+                            handleDeleteExperience
+                        })}/>
+                    </>
+                },
+                {
+                    title: 'Professional Positions',
+                    components: <>
+                        <div className='row'>
+                            <div className='col-12 mb-2'>
+                                <button className='btn btn-sm btn-primary float-end'
+                                        onClick={e => handleAddExperience(e, 'professionalPositions')}>Add New
+                                </button>
+                            </div>
+                        </div>
+                        <Experiences {...({
+                            experiences: experiences.professionalPositions,
+                            type: 'professionalPositions',
+                            handleEditExperience,
+                            handleDeleteExperience
+                        })}/>
+                    </>
+                },
             ]}/>
-
         </div>
     )
 }

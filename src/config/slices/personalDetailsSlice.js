@@ -6,7 +6,8 @@ const initialState = {
     lastName: '',
     dateOfBirth: '',
     gender: '',
-    makeProfilePublic: false
+    makeProfilePublic: false,
+    image: ''
 }
 
 const slice = createSlice({

@@ -10,7 +10,8 @@ export default function PersonalDetails(props) {
         lastName: '',
         dateOfBirth: '',
         gender: '',
-        makePublic: personalState.makePublic
+        makePublic: personalState.makePublic,
+        image: ''
     }
     const [state, setState] = React.useState(_init_state_)
     const dispatch = useDispatch()
@@ -28,6 +29,10 @@ export default function PersonalDetails(props) {
     const handleFormSubmit = event => {
         // console.log("State", state, "\n", 'Personal', personalState)
         dispatch(update(state))
+    }
+
+    const handleImageUpload = event => {
+        setState({...state, image: URL.createObjectURL(event.target.files[0])})
     }
 
     return (
@@ -82,21 +87,29 @@ export default function PersonalDetails(props) {
                 </div>
             </div>
 
+            <div className='col-md-4'>
+                <label className="form-label" htmlFor="photoUpload">Profile Picture</label>
+                <input type='file' onChange={handleImageUpload} id='photoUpload' onBlur={handleFormSubmit}/>
+            </div>
+            <div className='col-md-4'>
+                <div className="form-check form-switch">
+                    <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                           checked={state.makePublic} onChange={handleMakeProfilePublic}
+                           onBlur={handleFormSubmit}/>
+                    <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Make profile
+                        public</label>
+                </div>
+            </div>
+            <div className="col-md-4">
+                <button className="btn btn-sm btn-primary" style={{float: "right"}}
+                        onClick={handleFormSubmit}>Update
+                </button>
+            </div>
             <div className='col-md-12'>
                 <div className='row'>
-                    <div className='col'>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
-                                   checked={state.makePublic} onChange={handleMakeProfilePublic} onBlur={handleFormSubmit}/>
-                            <label className="form-check-label" htmlFor="flexSwitchCheckChecked">Make profile
-                                public</label>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <button className="btn btn-sm btn-primary" style={{float: "right"}}
-                                onClick={handleFormSubmit}>Update
-                        </button>
-                    </div>
+
+
+
                 </div>
             </div>
         </div>
