@@ -13,8 +13,6 @@ export default function Preview(props) {
                 </div>
                 <div className="card-body">
                     <Body/>
-                    <hr/>
-                    This is some text within a card body.
                 </div>
             </div>
         </div>

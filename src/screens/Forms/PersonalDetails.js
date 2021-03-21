@@ -5,13 +5,13 @@ import {update, makePublic, reset} from "../../config/slices/personalDetailsSlic
 export default function PersonalDetails(props) {
     const personalState = useSelector(state => state.personal)
     const _init_state_ = {
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        dateOfBirth: '',
-        gender: '',
+        firstName: personalState.firstName,
+        middleName: personalState.middleName,
+        lastName: personalState.lastName,
+        dateOfBirth: personalState.dateOfBirth,
+        gender: personalState.gender,
         makePublic: personalState.makePublic,
-        image: ''
+        image: personalState.image
     }
     const [state, setState] = React.useState(_init_state_)
     const dispatch = useDispatch()

@@ -22,9 +22,8 @@ export default function Body(props) {
             {title: "Special Assignments Served", list: specialAssignments},
             {title: "Professional Positions", list: professionalPositions}
         ].filter(e => !_.isEmpty(e.list))
-        return (
-            <ExperienceCard headline='Professional Experiences' collections={experienceCollections}/>
-        )
+        return <ExperienceCard headline='Professional Experiences' collections={experienceCollections}/>
+
     }
 
     return (
@@ -42,7 +41,7 @@ export default function Body(props) {
                         children: <p className='d-flex align-self-center mt-2'><i className="fas fa-medal"></i></p>
                     }} />
                 </div>
-                <MedicalLicenses/>
+                {licences.length > 0 ? <MedicalLicenses/> : null}
                 <ProfessionalExperiences/>
             </div>
         </>

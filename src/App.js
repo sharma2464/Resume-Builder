@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Navbar from "./components/Navbar";
 import handlePDFDownload from "./helpers/downloadPDF";
 import Profiles from "./screens/Profiles";
+import ShowProfile from "./screens/Profiles/show";
 
 function App() {
     const navLinks = [
@@ -19,17 +20,6 @@ function App() {
         }
     }, [])
 
-    const Profile = props => {
-        console.log('ENV', process.env)
-        let x = window.location
-        let y = props.match
-        console.log('Location', {...x})
-        console.log('Match', y)
-        return <>
-            Profile
-        </>
-    }
-
     return (
         <Router>
             <Navbar
@@ -39,7 +29,7 @@ function App() {
             <Switch>
                 <Route exact path='/' component={Builder}/>
                 <Route exact path='/profiles' component={Profiles}/>
-                <Route exact path='/profiles/:id' component={Profile}/>
+                <Route exact path='/profiles/:id' component={ShowProfile}/>
             </Switch>
         </Router>
     );

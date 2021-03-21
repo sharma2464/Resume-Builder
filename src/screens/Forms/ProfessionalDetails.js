@@ -1,12 +1,8 @@
 import React from 'react'
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Tabs from "../../components/Tabs";
 import Experiences from "./Experiences";
-import {
-    addExperience,
-    removeExperience,
-    updateExperience,
-} from "../../config/slices/professionalExperienceSlice";
+import {addExperience, removeExperience, updateExperience,} from "../../config/slices/professionalExperienceSlice";
 import Swal from 'sweetalert2'
 import _ from 'lodash'
 
@@ -27,7 +23,14 @@ export default function ProfessionalDetails(props) {
 
         if (text) {
             dispatch(addExperience({type, text}))
-            Swal.fire("Added", 'Experience has been added', "success")
+            Swal.fire({
+                text: "Added",
+                html: 'Experience has been added',
+                icon: "success",
+                toast: true,
+                timer: 1500,
+                position: "bottom"
+            })
         }
     }
 
@@ -46,7 +49,14 @@ export default function ProfessionalDetails(props) {
 
             if (text) {
                 dispatch(updateExperience({type, index, text}))
-                Swal.fire("Updated", "Experience has been updated", 'success')
+                Swal.fire({
+                    text: "Updated",
+                    html: "Experience has been updated",
+                    icon: 'success',
+                    toast: true,
+                    timer: 1500,
+                    position: "bottom"
+                })
             }
         }
     }
@@ -63,10 +73,14 @@ export default function ProfessionalDetails(props) {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(removeExperience({type, id}))
-                Swal.fire(
-                    'Deleted!',
-                    'Experience has been deleted.',
-                    'success'
+                Swal.fire({
+                        text: 'Deleted!',
+                        html: 'Experience has been deleted.',
+                        icon: 'success',
+                        toast: true,
+                        timer: 1500,
+                        position: "bottom"
+                    }
                 )
             }
         })

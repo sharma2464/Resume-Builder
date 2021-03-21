@@ -1,5 +1,5 @@
 import React from 'react'
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Tabs from "../../components/Tabs";
 import Experiences from "./Experiences";
 import Swal from 'sweetalert2'
@@ -24,7 +24,14 @@ export default function MedicalLicence(props) {
 
         if (text) {
             dispatch(addLicence(text))
-            Swal.fire("Added", 'Licence has been added', "success")
+            Swal.fire({
+                text: "Added",
+                html: 'Licence has been added',
+                icon: "success",
+                toast: true,
+                timer: 1500,
+                position: "bottom"
+            })
         }
     }
     const handleEditLicence = async (event, id, _type_) => {
@@ -42,7 +49,14 @@ export default function MedicalLicence(props) {
 
             if (text) {
                 dispatch(updateLicence({id, text}))
-                Swal.fire("Updated", "Licence has been updated", 'success')
+                Swal.fire({
+                    text: "Updated",
+                    html: "Licence has been updated",
+                    icon: 'success',
+                    toast: true,
+                    timer: 1500,
+                    position: "bottom"
+                })
             }
         }
     }
@@ -58,10 +72,14 @@ export default function MedicalLicence(props) {
         }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(removeLicence(id))
-                Swal.fire(
-                    'Deleted!',
-                    'Licence has been deleted.',
-                    'success'
+                Swal.fire({
+                        text: 'Deleted!',
+                        html: 'Licence has been deleted.',
+                        icon: 'success',
+                        toast: true,
+                        timer: 1500,
+                        position: "bottom"
+                    }
                 )
             }
         })
