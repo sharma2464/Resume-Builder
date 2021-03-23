@@ -11,7 +11,7 @@ export default function handlePDFDownload(event) {
             .then(canvas => {
                 const imgData = canvas.toDataURL('image/png')
                 const pdf = new jsPDF({unit: "cm", compress: true, orientation: 'p', precision: 100})
-                pdf.addImage(imgData, "JPEG", 8.5, 11)
+                pdf.addImage(imgData, "JPEG", 0, 0)
                 return pdf.save(`${firstName}_resume.pdf`)
             })
     }
