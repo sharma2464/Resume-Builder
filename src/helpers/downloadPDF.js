@@ -9,9 +9,10 @@ export default function handlePDFDownload(event) {
     if (resumeDocument) {
         html2canvas(resumeDocument)
             .then(canvas => {
-                const imgData = canvas.toDataURL('image/png')
-                const pdf = new jsPDF({unit: "cm", compress: true, orientation: 'p', precision: 100})
-                pdf.addImage(imgData, "JPEG", 0, 0)
+                const imgData = canvas.toDataURL('image/pdf')
+                // const pdf = new jsPDF({unit: "cm", compress: true, orientation: 'p', precision: 100})
+                const pdf = new jsPDF()
+                pdf.addImage(imgData, "PNG", 0, 0)
                 return pdf.save(`${firstName}_resume.pdf`)
             })
     }
