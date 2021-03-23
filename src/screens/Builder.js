@@ -27,13 +27,13 @@ export default function Builder(props) {
             </div>
             <div className="row">
                 {/*<div className="" style={{display: 'flex', marginTop: '1%'}}>*/}
-                <div className="col-lg-6">
+                <div className="col-6">
                     {/*<div className="" style={/!*margin: 'auto', width: '50vw'}}>*/}
                     <div style={{margin: '50px'}}>
                         <Accordian list={formList}/>
                     </div>
                 </div>
-                <div className="col-lg-6">
+                <div className="col-6">
                     {/*<div className="" style={/!*margin: 'auto', width: '50vw'}}>*/}
                     <div style={{margin: '50px'}}>
                         <Preview/>

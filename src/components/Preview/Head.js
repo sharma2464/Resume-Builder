@@ -52,12 +52,18 @@ export default function Head(props) {
                 </div>
                 <div className='col-2'>
                     {image
-                        ? <img src={image.toString()} alt={""} height='135px' border='1'/>
+                        ? <img src={image} alt={""} height='150px' width='115px' border='1'/>
                         : <TempDiv {...({width: '130px', height: '150px'})} />
                     }
                 </div>
                 <div className='col-2'>
-                    <TempDiv {...({width: '130px', height: '135px', children: <p>QR goes here</p>})} />
+                    <TempDiv {...({
+                        marginTop: '10px',
+                        width: '130px',
+                        height: '130px',
+                        border: '1px solid grey',
+                        children: <code>QR goes here</code>
+                    })} />
                 </div>
             </div>
         </div>

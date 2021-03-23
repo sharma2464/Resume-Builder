@@ -72,7 +72,7 @@ export default function PersonalDetails(props) {
                 <label htmlFor="validationGender" className="form-label">Gender</label>
                 <br/>
                 {['Male', 'Female', 'Others'].map((e, i) => (
-                    <div id='validationGender' className="form-check form-check-inline" key={i}>
+                    <div id='validationGender' className="form-check form-check-inline mt-2" key={i}>
                         <input className="form-check-input" type="radio" name={e}
                                id={`${e}_${i}`}
                                value={e.toLowerCase()}
@@ -94,11 +94,12 @@ export default function PersonalDetails(props) {
                        value={state.bio} onChange={handleInputChange} onBlur={handleFormSubmit}/>
             </div>
 
-            <div className='col-md-4'>
+            <div className='col-md-6'>
                 <label className="form-label" htmlFor="photoUpload">Profile Picture</label>
-                <input type='file' onChange={handleImageUpload} id='photoUpload' onBlur={handleFormSubmit}/>
+                <input className='btn btn-sm btn-primary' type='file' onChange={handleImageUpload} id='photoUpload' onBlur={handleFormSubmit}/>
             </div>
-            <div className='col-md-4'>
+            <br />
+            <div className=''>
                 <div className="form-check form-switch">
                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
                            checked={state.makePublic} onChange={handleMakeProfilePublic}
@@ -107,8 +108,9 @@ export default function PersonalDetails(props) {
                         public</label>
                 </div>
             </div>
+            <br />
             <div className="col-md-4">
-                <button className="btn btn-sm btn-primary" style={{float: "right"}}
+                <button className="btn btn-sm btn-primary" style={{float: ""}}
                         onClick={handleFormSubmit}>Update
                 </button>
             </div>
