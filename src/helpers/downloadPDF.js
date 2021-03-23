@@ -1,6 +1,6 @@
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
-import store from "../app/store";
+import {store} from "../app/store";
 
 // resumeContainer
 export default function handlePDFDownload(event) {
