@@ -14,9 +14,9 @@ phases:
   pre_build:
     commands:
       # Run tests, lint scripts or any other pre-build checks.
-      - npm install -g yarn
-      - yarn global add serve
-      - yarn install
+      # - npm install -g yarn
+      # - yarn global add serve
+      # - yarn install
 
   build:
     commands:
@@ -25,7 +25,7 @@ phases:
 
   post_build:
     commands:
-      - serve -s build
+      # - serve -s build
       # Use Post-Build for notifications, git tags, upload artifacts to S3
       # - sam package --s3-bucket $PACKAGE_BUCKET --output-template-file packaged.yaml
 
